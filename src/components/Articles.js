@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { reactRouterDom, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { selectArticles, filterArticles } from "../features/articles/articlesSlice";
 import Search from "./Search";
 
@@ -11,10 +11,12 @@ export default function Articles () {
   const articles = useSelector(selectArticles)
   
   // grab the search value from useLocation()
+  const { search } = useLocation();
+  const queryParams = new URLSearchParams(search);
   
   // get the queryParams from new URLSearchParams() 
   
-  const title = '' // <-- fix me!
+  const title = queryParams.get('title'); // <-- fix me!
   
   const filteredArticles = title ? filterArticles(title, articles) : Object.values(articles)
 
